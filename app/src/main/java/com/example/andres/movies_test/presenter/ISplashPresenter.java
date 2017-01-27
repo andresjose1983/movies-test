@@ -18,5 +18,5 @@ public interface ISplashPresenter {
 
     void showError(final String error);
 
-    void addMovies(List<Movie> movies);
+    void addMovie(final Movie movie);
 }

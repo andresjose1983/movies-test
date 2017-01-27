@@ -8,8 +8,6 @@ import com.example.andres.movies_test.model.Movie;
 import com.example.andres.movies_test.model.MovieResponse;
 import com.example.andres.movies_test.view.ISplashView;
 
-import java.util.List;
-
 /**
  * Created by andres on 27/01/17.
  */
@@ -36,8 +34,12 @@ public class SplashPresenter implements ISplashPresenter {
     public void setGenres(GenreResponse genreResponse) {
         for (Genre genre: genreResponse.getGenres()) {
             MovieResponse moviesByGenre = mMovieInteractor.getMoviesByGenre(String.valueOf(genre.getId()));
-            if(moviesByGenre != null)
-                addMovies(moviesByGenre.getResults());
+            if(moviesByGenre != null) {
+                for (Movie movie: moviesByGenre.getResults()) {
+                    movie.setGenre(genre);
+                    addMovie(movie);
+                }
+            }
         }
         mISplashView.goToNextView(genreResponse, mMovieResponse);
     }
@@ -48,7 +50,7 @@ public class SplashPresenter implements ISplashPresenter {
     }
 
     @Override
-    public void addMovies(final List<Movie> movies) {
-        mMovieResponse.getResults().addAll(movies);
+    public void addMovie(final Movie movie) {
+        mMovieResponse.getResults().add(movie);
     }
 }
