@@ -3,12 +3,13 @@ package com.example.andres.movies_test.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * Created by andres on 27/01/17.
  */
 
-public class Movie implements Serializable {
+public class Movie implements Serializable, Comparable<Movie> {
 
     private int id;
 
@@ -135,5 +136,17 @@ public class Movie implements Serializable {
      */
     public double getVote() {
         return vote;
+    }
+
+    @Override
+    public int compareTo(Movie movie) {
+        if(this.title.compareToIgnoreCase(movie.getTitle()) == 0){
+            if(this.originalTitle.compareToIgnoreCase(movie.getOriginalLanguage()) == 0){
+                return this.overview.compareToIgnoreCase(movie.getOverview());
+            }else
+                return this.originalTitle.compareToIgnoreCase(movie.getOriginalLanguage());
+
+        }else
+            return this.title.compareToIgnoreCase(movie.getTitle());
     }
 }

@@ -8,6 +8,8 @@ import com.example.andres.movies_test.model.Movie;
 import com.example.andres.movies_test.model.MovieResponse;
 import com.example.andres.movies_test.view.ISplashView;
 
+import java.util.Collections;
+
 /**
  * Created by andres on 27/01/17.
  */
@@ -32,8 +34,12 @@ public class SplashPresenter implements ISplashPresenter {
 
     @Override
     public void setGenres(GenreResponse genreResponse) {
+        //Order
+        Collections.sort(genreResponse.getGenres());
         for (Genre genre: genreResponse.getGenres()) {
             MovieResponse moviesByGenre = mMovieInteractor.getMoviesByGenre(String.valueOf(genre.getId()));
+            //Order
+            Collections.sort(moviesByGenre.getResults());
             if(moviesByGenre != null) {
                 for (Movie movie: moviesByGenre.getResults()) {
                     movie.setGenre(genre);
