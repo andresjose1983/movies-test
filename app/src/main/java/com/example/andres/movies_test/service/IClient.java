@@ -14,9 +14,9 @@ import retrofit2.http.Query;
 
 public interface IClient {
 
-    @GET("/genre/movie/list")
+    @GET("genre/movie/list")
     Call<GenreResponse> getGenre(@Query("api_key") String apiKey);
 
-    @GET("/genre/{genre_id}/movies?include_adult=false&sort_by=created_at.as")
-    Call<MovieResponse> getMovies(@Query("api_key") String apiKey, @Path("genre_id") String genreId);
+    @GET("genre/{genre_id}/movies?include_adult=false&sort_by=created_at.as")
+    Call<MovieResponse> getMovies(@Path("genre_id") String genreId, @Query("api_key") String apiKey);
 }
