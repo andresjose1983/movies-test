@@ -1,9 +1,7 @@
 package com.example.andres.movies_test.interactor;
 
-import com.example.andres.movies_test.model.Genre;
+import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.service.RestClient;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,14 +18,14 @@ public class GenreInteractor {
      */
     public void getGenres() {
 
-        RestClient.getGenres().enqueue(new Callback<List<Genre>>() {
+        RestClient.getGenres().enqueue(new Callback<GenreResponse>() {
             @Override
-            public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
+            public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
 
             }
 
             @Override
-            public void onFailure(Call<List<Genre>> call, Throwable t) {
+            public void onFailure(Call<GenreResponse> call, Throwable t) {
 
             }
         });
