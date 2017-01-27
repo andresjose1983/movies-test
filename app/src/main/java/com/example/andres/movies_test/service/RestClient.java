@@ -88,6 +88,6 @@ public final class RestClient {
     }
 
     public static Call<MovieResponse> getMoviesByGenre(final String genreId){
-        return mIClient.getMovies(BuildConfig.API_KEY, genreId);
+        return mIClient.getMovies(genreId, BuildConfig.API_KEY);
     }
 }
