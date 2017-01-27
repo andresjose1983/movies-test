@@ -2,11 +2,10 @@ package com.example.andres.movies_test.service;
 
 import com.example.andres.movies_test.App;
 import com.example.andres.movies_test.BuildConfig;
-import com.example.andres.movies_test.model.Genre;
-import com.example.andres.movies_test.model.Movie;
+import com.example.andres.movies_test.model.GenreResponse;
+import com.example.andres.movies_test.model.MovieResponse;
 
 import java.io.File;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -84,11 +83,11 @@ public final class RestClient {
      * Call Getting genre
      * @return Call<List<Genre>>
      */
-    public static Call<List<Genre>> getGenres(){
+    public static Call<GenreResponse> getGenres(){
         return mIClient.getGenre(BuildConfig.API_KEY);
     }
 
-    public static Call<List<Movie>> getMoviesByGenre(final String genreId){
+    public static Call<MovieResponse> getMoviesByGenre(final String genreId){
         return mIClient.getMovies(BuildConfig.API_KEY, genreId);
     }
 }
