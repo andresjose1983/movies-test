@@ -1,5 +1,6 @@
 package com.example.andres.movies_test.view;
 
+import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.model.MovieResponse;
 
 /**
@@ -8,7 +9,7 @@ import com.example.andres.movies_test.model.MovieResponse;
 
 public interface ISplashView {
 
-    void goToNextView(final MovieResponse movieResponse);
+    void goToNextView(final GenreResponse genreResponse, final MovieResponse movieResponse);
 
     void showError(final String error);
 

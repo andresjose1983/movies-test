@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by andres on 27/01/17.
  */
 
-public class Genre implements Serializable {
+public class Genre implements Serializable, Comparable<Genre>{
 
     private int id;
     private String name;
@@ -30,5 +30,10 @@ public class Genre implements Serializable {
      */
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Genre genre) {
+        return this.name.compareToIgnoreCase(genre.getName());
     }
 }

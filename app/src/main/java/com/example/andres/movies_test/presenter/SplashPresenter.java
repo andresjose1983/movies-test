@@ -34,9 +34,12 @@ public class SplashPresenter implements ISplashPresenter {
 
     @Override
     public void setGenres(GenreResponse genreResponse) {
-        for (Genre genre: genreResponse.getGenres())
-            mMovieInteractor.getMoviesByGenre(String.valueOf(genre.getId()));
-        mISplashView.goToNextView(mMovieResponse);
+        for (Genre genre: genreResponse.getGenres()) {
+            MovieResponse moviesByGenre = mMovieInteractor.getMoviesByGenre(String.valueOf(genre.getId()));
+            if(moviesByGenre != null)
+                addMovies(moviesByGenre.getResults());
+        }
+        mISplashView.goToNextView(genreResponse, mMovieResponse);
     }
 
     @Override

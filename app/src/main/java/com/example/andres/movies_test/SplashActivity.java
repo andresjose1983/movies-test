@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.model.MovieResponse;
 import com.example.andres.movies_test.presenter.ISplashPresenter;
 import com.example.andres.movies_test.presenter.SplashPresenter;
@@ -27,8 +28,8 @@ public class SplashActivity extends AppCompatActivity implements ISplashView{
     }
 
     @Override
-    public void goToNextView(final MovieResponse movieResponse) {
-        MainActivity.show(this, movieResponse);
+    public void goToNextView(final GenreResponse genreResponse, final MovieResponse movieResponse) {
+        MainActivity.show(this, genreResponse, movieResponse);
     }
 
     @Override

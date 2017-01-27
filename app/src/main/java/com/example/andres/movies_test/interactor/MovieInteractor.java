@@ -4,9 +4,7 @@ import com.example.andres.movies_test.model.MovieResponse;
 import com.example.andres.movies_test.presenter.ISplashPresenter;
 import com.example.andres.movies_test.service.RestClient;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.io.IOException;
 
 /**
  * Created by andres on 27/01/17.
@@ -24,18 +22,12 @@ public class MovieInteractor {
      * Call service in order to movies by genreId
      * @param genreId
      */
-    public void getMoviesByGenre(final String genreId){
-        RestClient.getMoviesByGenre(genreId).enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                if(response.body() != null)
-                    mISplashPresenter.addMovies(response.body().getResults());
-            }
-
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-                mISplashPresenter.showError(t.getMessage());
-            }
-        });
+    public MovieResponse getMoviesByGenre(final String genreId){
+        try {
+            return RestClient.getMoviesByGenre(genreId).execute().body();
+        } catch (IOException e) {
+            mISplashPresenter.showError(e.getMessage());
+        }
+        return null;
     }
 }
