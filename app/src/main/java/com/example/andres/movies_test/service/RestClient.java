@@ -87,6 +87,11 @@ public final class RestClient {
         return mIClient.getGenre(BuildConfig.API_KEY);
     }
 
+    /**
+     * Call Getting movies by genre
+     * @param genreId
+     * @return
+     */
     public static Call<MovieResponse> getMoviesByGenre(final String genreId){
         return mIClient.getMovies(genreId, BuildConfig.API_KEY);
     }
