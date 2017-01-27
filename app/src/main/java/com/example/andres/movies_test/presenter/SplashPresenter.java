@@ -4,7 +4,6 @@ import com.example.andres.movies_test.interactor.GenreInteractor;
 import com.example.andres.movies_test.interactor.MovieInteractor;
 import com.example.andres.movies_test.model.Genre;
 import com.example.andres.movies_test.model.GenreResponse;
-import com.example.andres.movies_test.model.Movie;
 import com.example.andres.movies_test.model.MovieResponse;
 import com.example.andres.movies_test.view.ISplashView;
 
@@ -19,7 +18,6 @@ public class SplashPresenter implements ISplashPresenter {
     private ISplashView mISplashView;
     private GenreInteractor mGenreInteractor;
     private MovieInteractor mMovieInteractor;
-    private MovieResponse mMovieResponse = new MovieResponse();
 
     public SplashPresenter(ISplashView mISplashView) {
         this.mISplashView = mISplashView;
@@ -40,23 +38,13 @@ public class SplashPresenter implements ISplashPresenter {
             MovieResponse moviesByGenre = mMovieInteractor.getMoviesByGenre(String.valueOf(genre.getId()));
             //Order
             Collections.sort(moviesByGenre.getResults());
-            if(moviesByGenre != null) {
-                for (Movie movie: moviesByGenre.getResults()) {
-                    movie.setGenre(genre);
-                    addMovie(movie);
-                }
-            }
+            genre.setMovies(moviesByGenre.getResults());
         }
-        mISplashView.goToNextView(genreResponse, mMovieResponse);
+        mISplashView.goToNextView(genreResponse);
     }
 
     @Override
     public void showError(String error) {
         mISplashView.showError(error);
-    }
-
-    @Override
-    public void addMovie(final Movie movie) {
-        mMovieResponse.getResults().add(movie);
     }
 }

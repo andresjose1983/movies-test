@@ -28,8 +28,8 @@ public class SplashActivity extends AppCompatActivity implements ISplashView{
     }
 
     @Override
-    public void goToNextView(final GenreResponse genreResponse, final MovieResponse movieResponse) {
-        MainActivity.show(this, genreResponse, movieResponse);
+    public void goToNextView(final GenreResponse genreResponse) {
+        MainActivity.show(this, genreResponse);
     }
 
     @Override

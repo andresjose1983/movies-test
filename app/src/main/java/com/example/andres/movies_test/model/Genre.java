@@ -1,6 +1,7 @@
 package com.example.andres.movies_test.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by andres on 27/01/17.
@@ -10,6 +11,7 @@ public class Genre implements Serializable, Comparable<Genre>{
 
     private int id;
     private String name;
+    private List<Movie> movies;
 
     public Genre(int id, String name) {
         this.id = id;
@@ -30,6 +32,14 @@ public class Genre implements Serializable, Comparable<Genre>{
      */
     public String getName() {
         return name;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 
     @Override

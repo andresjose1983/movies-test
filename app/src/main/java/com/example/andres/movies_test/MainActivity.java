@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.andres.movies_test.model.GenreResponse;
-import com.example.andres.movies_test.model.MovieResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,19 +13,16 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.rvMovie)
-    RecyclerView recyclerView;
+    RecyclerView mRvMovie;
 
-    private static final String INTENT_DATA_MOVIES =
-            "com.example.andres.movies_test.data.INTENT_DATA_MOVIES";
+    private GenreResponse mGenreResponse;
 
     private static final String INTENT_DATA_GENRES =
             "com.example.andres.movies_test.data.INTENT_DATA_GENRES";
 
-    public static void show(final SplashActivity splashActivity, final GenreResponse genreResponse,
-                            final MovieResponse movieResponse){
+    public static void show(final SplashActivity splashActivity, final GenreResponse genreResponse){
         splashActivity.startActivity(new Intent(splashActivity, MainActivity.class)
-                .putExtra(INTENT_DATA_GENRES, genreResponse)
-                .putExtra(INTENT_DATA_MOVIES, movieResponse));
+                .putExtra(INTENT_DATA_GENRES, genreResponse));
     }
 
     @Override
@@ -38,6 +34,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-
+        mGenreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
     }
 }
