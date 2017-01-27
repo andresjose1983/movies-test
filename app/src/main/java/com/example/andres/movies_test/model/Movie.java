@@ -35,10 +35,10 @@ public class Movie implements Serializable, Comparable<Movie> {
     private String title;
 
     @SerializedName("vote_average")
-    private double vote;
+    private float vote;
 
     public Movie(int id, String backdropPath, String originalLanguage, String originalTitle,
-                 String overview, String date, String posterPath, String title, double vote) {
+                 String overview, String date, String posterPath, String title, float vote) {
         this.id = id;
         this.backdropPath = backdropPath;
         this.originalLanguage = originalLanguage;
@@ -134,7 +134,7 @@ public class Movie implements Serializable, Comparable<Movie> {
      * Get movie vote
      * @return
      */
-    public double getVote() {
+    public float getVote() {
         return vote;
     }
 

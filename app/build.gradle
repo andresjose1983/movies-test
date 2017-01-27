@@ -12,6 +12,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "API_URL", '"https://api.themoviedb.org/3/"')
+        buildConfigField("String", "URL_IMAGE", '"https://image.tmdb.org/t/p/w90_and_h90_bestv2/"')
         buildConfigField("String", "API_KEY", '"7c682b2064fe3a4184e4a5372290c3c8"')
 
         jackOptions {

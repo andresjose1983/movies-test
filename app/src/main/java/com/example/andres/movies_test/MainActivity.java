@@ -3,8 +3,12 @@ package com.example.andres.movies_test;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.andres.movies_test.adapter.GenreAdapter;
 import com.example.andres.movies_test.model.GenreResponse;
 
 import butterknife.BindView;
@@ -20,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String INTENT_DATA_GENRES =
             "com.example.andres.movies_test.data.INTENT_DATA_GENRES";
 
-    public static void show(final SplashActivity splashActivity, final GenreResponse genreResponse){
+    public static void show(final SplashActivity splashActivity, final GenreResponse genreResponse) {
         splashActivity.startActivity(new Intent(splashActivity, MainActivity.class)
                 .putExtra(INTENT_DATA_GENRES, genreResponse));
     }
@@ -33,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         mGenreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
+        mRvMovie.setLayoutManager(new LinearLayoutManager(this));
+        mRvMovie.setHasFixedSize(true);
+        mRvMovie.setItemAnimator(new DefaultItemAnimator());
+        mRvMovie.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mRvMovie.setAdapter(new GenreAdapter(mGenreResponse.getGenres()));
     }
 }
