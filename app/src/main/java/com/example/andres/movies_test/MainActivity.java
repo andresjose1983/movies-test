@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.andres.movies_test.adapter.GenreAdapter;
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @BindView(R.id.rvMovie)
     RecyclerView mRvMovie;
+    private GenreAdapter mGenreAdapter;
 
     private SearchView mSearchView;
     private MenuItem mMenu;
@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        mGenreAdapter.clear();
+        mGenreAdapter.getFilter().filter(newText.toUpperCase().trim());
         return false;
     }
 
@@ -76,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mRvMovie.setHasFixedSize(true);
         mRvMovie.setItemAnimator(new DefaultItemAnimator());
         mRvMovie.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mRvMovie.setAdapter(new GenreAdapter(mGenreResponse.getGenres()));
+        mRvMovie.setAdapter(mGenreAdapter = new GenreAdapter(mGenreResponse.getGenres()));
     }
+
+
 }

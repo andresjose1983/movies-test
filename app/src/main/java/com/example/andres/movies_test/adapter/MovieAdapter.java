@@ -43,7 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         holder.mTvDate.setText(movie.getDate());
         holder.mRbMovie.setRating(movie.getVote());
         Glide.with(holder.mIvMovie.getContext()).load(BuildConfig.URL_IMAGE + movie.getBackdropPath())
-                .into(holder.mIvMovie);
+                .crossFade(500).into(holder.mIvMovie);
     }
 
     @Override
