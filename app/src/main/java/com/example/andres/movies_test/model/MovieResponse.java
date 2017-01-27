@@ -1,6 +1,7 @@
 package com.example.andres.movies_test.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,10 @@ import java.util.List;
 
 public class MovieResponse implements Serializable {
 
-    private List<Movie> results;
+    private List<Movie> results = new ArrayList<>();
+
+    public MovieResponse() {
+    }
 
     public MovieResponse(List<Movie> results) {
         this.results = results;
