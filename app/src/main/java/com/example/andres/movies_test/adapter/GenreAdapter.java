@@ -120,22 +120,24 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
                 mFiltersGenres.addAll(mGenres);
             } else {
                 for (final Genre genre : mGenres) {
-                    try {
-                        List<Movie> movies = new ArrayList<>();
-                        for (Movie movie : genre.getMovies()) {
+                    List<Movie> movies = new ArrayList<>();
+                    for (Movie movie : genre.getMovies()) {
+                        try {
+                            float rating = Float.parseFloat((String) constraint);
+                            if (movie.getVote() == rating)
+                                movies.add(movie);
+                        } catch (NumberFormatException e) {
                             boolean verify = movie.getTitle().toUpperCase().contains(constraint)
                                     || movie.getOverview().toUpperCase().contains(constraint)
                                     || movie.getOriginalTitle().toUpperCase().contains(constraint);
                             if (verify)
                                 movies.add(movie);
                         }
-                        if(!movies.isEmpty()) {
-                            genre.getMovies().clear();
-                            genre.getMovies().addAll(movies);
-                            mFiltersGenres.add(genre);
-                        }
-                    } catch (NullPointerException e) {
-                        Log.e(GenreFilter.class.getCanonicalName(), e.getMessage());
+                    }
+                    if (!movies.isEmpty()) {
+                        genre.getMovies().clear();
+                        genre.getMovies().addAll(movies);
+                        mFiltersGenres.add(genre);
                     }
                 }
             }
