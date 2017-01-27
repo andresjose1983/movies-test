@@ -1,5 +1,6 @@
 package com.example.andres.movies_test.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,10 +60,15 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view->{
-                if(mRvMovies.getVisibility() == View.GONE)
+                if(mRvMovies.getVisibility() == View.GONE) {
+                    mTvTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(
+                            view.getContext(), R.drawable.ic_keyboard_arrow_up_24px), null);
                     mRvMovies.setVisibility(View.VISIBLE);
-                else
+                }else {
                     mRvMovies.setVisibility(View.GONE);
+                    mTvTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(
+                            view.getContext(), R.drawable.ic_keyboard_arrow_down_24px), null);
+                }
             });
             init();
         }
