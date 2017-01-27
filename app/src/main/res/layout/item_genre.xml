@@ -23,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height_normal"
         android:layout_alignParentTop="true"
-        android:drawableEnd="@drawable/ic_keyboard_arrow_down_24px"
-        android:drawableRight="@drawable/ic_keyboard_arrow_down_24px"
+        android:layout_toLeftOf="@+id/iv_direction"
+        android:layout_toStartOf="@+id/iv_direction"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
@@ -33,6 +33,19 @@
         android:textSize="@dimen/text_regular"
         android:textStyle="bold"
         tools:text="Test " />
+
+    <ImageView
+        android:id="@+id/iv_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rv_movies"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/margin_normal"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_keyboard_arrow_down_24px"
+        android:tint="@color/colorAccent" />
 
 </RelativeLayout>
 

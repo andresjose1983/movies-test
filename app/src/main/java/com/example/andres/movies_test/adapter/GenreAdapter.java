@@ -1,16 +1,15 @@
 package com.example.andres.movies_test.adapter;
 
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.andres.movies_test.R;
@@ -63,18 +62,19 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
         @BindView(R.id.rv_movies)
         RecyclerView mRvMovies;
 
+        @BindView(R.id.iv_direction)
+        ImageView mIvDirection;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view -> {
                 if (mRvMovies.getVisibility() == View.GONE) {
-                    mTvTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(
-                            view.getContext(), R.drawable.ic_keyboard_arrow_up_24px), null);
+                    mIvDirection.setImageResource(R.drawable.ic_keyboard_arrow_up_24px);
                     mRvMovies.setVisibility(View.VISIBLE);
                 } else {
+                    mIvDirection.setImageResource(R.drawable.ic_keyboard_arrow_down_24px);
                     mRvMovies.setVisibility(View.GONE);
-                    mTvTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(
-                            view.getContext(), R.drawable.ic_keyboard_arrow_down_24px), null);
                 }
             });
             init();
@@ -86,7 +86,6 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
             mRvMovies.setItemAnimator(new DefaultItemAnimator());
             mRvMovies.addItemDecoration(new DividerItemDecoration(mRvMovies.getContext(),
                     DividerItemDecoration.VERTICAL));
-
         }
     }
 
@@ -153,6 +152,11 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
                 mGenreAdapter.mGenres.addAll((ArrayList<Genre>) filterResults.values);
             mGenreAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void addAll(List<Genre> genres) {
+        mGenres = genres;
+        notifyDataSetChanged();
     }
 
 }
