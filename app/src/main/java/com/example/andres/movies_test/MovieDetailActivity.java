@@ -1,18 +1,19 @@
-package com.example.andres.movies_test.debug;
+package com.example.andres.movies_test;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.andres.movies_test.BuildConfig;
-import com.example.andres.movies_test.R;
 import com.example.andres.movies_test.model.Movie;
 
 import butterknife.BindView;
@@ -25,6 +26,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     Toolbar mTbPhoto;
     @BindView(R.id.iv_movie)
     ImageView mIvMovie;
+    @BindView(R.id.iv_movie_icon)
+    ImageView mIvMovieIcon;
     @BindView(R.id.tv_date)
     TextView mTvDate;
     @BindView(R.id.tv_title)
@@ -37,9 +40,22 @@ public class MovieDetailActivity extends AppCompatActivity {
     Movie movie;
 
 
-    public static void show(final Context context, final Movie movie){
-        context.startActivity(new Intent(context, MovieDetailActivity.class)
-        .putExtra(INTENT_DATA, movie));
+    public static void show(final MainActivity mainActivity, final RatingBar ratingBar,
+                            TextView title, TextView tvDate, final ImageView ivMovie,
+                            final Movie movie){
+        Intent intent = new Intent(mainActivity, MovieDetailActivity.class).putExtra(INTENT_DATA, movie);
+
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            Pair<View, String> p1 = Pair.create(ivMovie, "movie_picture");
+            Pair<View, String> p2 = Pair.create(tvDate, "date");
+            Pair<View, String> p3 = Pair.create(title, "title");
+            Pair<View, String> p4 = Pair.create(ratingBar, "rating");
+
+            ActivityOptionsCompat options = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(mainActivity, p1, p2, p3, p4);
+            mainActivity.startActivity(intent, options.toBundle());
+        }else
+            mainActivity.startActivity(intent);
     }
 
     @Override
@@ -66,6 +82,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Glide.with(this).load(BuildConfig.URL_IMAGE_POST + movie.getPosterPath())
                 .centerCrop().crossFade(500).into(mIvMovie);
+        Glide.with(this).load(BuildConfig.URL_IMAGE_POST + movie.getBackdropPath())
+                .centerCrop().crossFade(500).into(mIvMovieIcon);
 
         mTbPhoto.setTitle(movie.getTitle());
         mTvDate.setText(movie.getDate());

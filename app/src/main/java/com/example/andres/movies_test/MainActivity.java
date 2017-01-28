@@ -12,9 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.example.andres.movies_test.adapter.GenreAdapter;
-import com.example.andres.movies_test.debug.MovieDetailActivity;
 import com.example.andres.movies_test.model.Genre;
 import com.example.andres.movies_test.model.Movie;
 import com.example.andres.movies_test.presenter.IMainPresenter;
@@ -116,7 +118,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     @Override
-    public void gotoMovieDetail(Movie movie) {
-        MovieDetailActivity.show(this, movie);
+    public void gotoMovieDetail(final RatingBar ratingBar, final TextView title,
+                                final TextView tvDate, final ImageView ivMovie, Movie movie) {
+        MovieDetailActivity.show(this, ratingBar, title, tvDate, ivMovie, movie);
     }
 }

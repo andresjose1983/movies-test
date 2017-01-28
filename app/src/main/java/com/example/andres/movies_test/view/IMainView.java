@@ -1,5 +1,9 @@
 package com.example.andres.movies_test.view;
 
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
 import com.example.andres.movies_test.model.Genre;
 import com.example.andres.movies_test.model.Movie;
 
@@ -13,6 +17,6 @@ public interface IMainView {
 
     void displayData(final List<Genre> genres);
 
-    void gotoMovieDetail(final Movie movie);
+    void gotoMovieDetail(final RatingBar ratingBar, final TextView title, final TextView tvDate, final ImageView ivMovie, final Movie movie);
 
 }

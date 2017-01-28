@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".debug.MovieDetailActivity"
+        <activity android:name=".MovieDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

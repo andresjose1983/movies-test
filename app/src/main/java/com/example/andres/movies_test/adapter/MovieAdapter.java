@@ -69,7 +69,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view -> mIMainView.gotoMovieDetail(
-                    mMovies.get(getLayoutPosition())));
+                    mRbMovie, mTvTitle, mTvDate, mIvMovie, mMovies.get(getLayoutPosition())));
         }
     }
 
