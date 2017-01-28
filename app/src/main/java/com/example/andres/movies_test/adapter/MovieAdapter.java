@@ -1,5 +1,8 @@
 package com.example.andres.movies_test.adapter;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +73,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view -> mIMainView.gotoMovieDetail(
                     mRbMovie, mTvTitle, mTvDate, mIvMovie, mMovies.get(getLayoutPosition())));
+
+            LayerDrawable stars = (LayerDrawable) mRbMovie.getProgressDrawable();
+            stars.getDrawable(2).setColorFilter(ContextCompat.getColor(mRbMovie.getContext(),
+                    R.color.yellow), PorterDuff.Mode.SRC_ATOP);
+            stars.getDrawable(1).setColorFilter(ContextCompat.getColor(mRbMovie.getContext(),
+                    R.color.yellow), PorterDuff.Mode.SRC_ATOP);
+            stars.getDrawable(0).setColorFilter(ContextCompat.getColor(mRbMovie.getContext(),
+                    R.color.yellow), PorterDuff.Mode.SRC_ATOP);
+
         }
     }
 

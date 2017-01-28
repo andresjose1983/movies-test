@@ -75,16 +75,18 @@
 
             <RatingBar
                 android:id="@+id/rb_movie"
-                style="?android:attr/ratingBarStyleSmall"
+                style="@style/RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:transitionName="rating"
                 android:layout_below="@+id/tv_title"
+                android:layout_centerHorizontal="true"
                 android:layout_toEndOf="@+id/iv_movie_icon"
                 android:layout_toRightOf="@+id/iv_movie_icon"
                 android:isIndicator="true"
                 android:numStars="10"
-                android:stepSize="0.1" />
+                android:rating="3.5"
+                android:stepSize="0.1"
+                android:transitionName="rating" />
 
             <TextView
                 android:id="@+id/tv_date"
