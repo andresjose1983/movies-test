@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.andres.movies_test.R;
 import com.example.andres.movies_test.model.Genre;
 import com.example.andres.movies_test.model.Movie;
+import com.example.andres.movies_test.view.IMainView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +31,12 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
 
     private List<Genre> mGenres;
     private List<Genre> mGenresFilter = new ArrayList<>();
+    private IMainView mIMainView;
 
-    public GenreAdapter(List<Genre> mGenres) {
+    public GenreAdapter(IMainView mIMainView, List<Genre> mGenres) {
         this.mGenres = mGenres;
         this.mGenresFilter = new ArrayList<>(this.mGenres);
+        this.mIMainView = mIMainView;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Genre genre = mGenres.get(position);
         holder.mTvTitle.setText(genre.getName());
-        holder.mRvMovies.setAdapter(new MovieAdapter(genre.getMovies()));
+        holder.mRvMovies.setAdapter(new MovieAdapter(mIMainView, genre.getMovies()));
     }
 
     @Override

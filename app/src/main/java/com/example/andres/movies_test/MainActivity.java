@@ -14,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.andres.movies_test.adapter.GenreAdapter;
+import com.example.andres.movies_test.debug.MovieDetailActivity;
 import com.example.andres.movies_test.model.Genre;
+import com.example.andres.movies_test.model.Movie;
 import com.example.andres.movies_test.presenter.IMainPresenter;
 import com.example.andres.movies_test.presenter.MainPresenter;
 import com.example.andres.movies_test.view.IMainView;
@@ -106,10 +108,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mRvMovie.setHasFixedSize(true);
         mRvMovie.setItemAnimator(new DefaultItemAnimator());
         mRvMovie.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mRvMovie.setAdapter(mGenreAdapter = new GenreAdapter(getGenreCopy()));
+        mRvMovie.setAdapter(mGenreAdapter = new GenreAdapter(this, getGenreCopy()));
     }
 
     private List<Genre> getGenreCopy(){
         return mIMainPresenter.get(this);
+    }
+
+    @Override
+    public void gotoMovieDetail(Movie movie) {
+        MovieDetailActivity.show(this, movie);
     }
 }

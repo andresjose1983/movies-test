@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.example.andres.movies_test.BuildConfig;
 import com.example.andres.movies_test.R;
 import com.example.andres.movies_test.model.Movie;
+import com.example.andres.movies_test.view.IMainView;
 
 import java.util.List;
 
@@ -22,12 +23,14 @@ import butterknife.ButterKnife;
  * Created by andres on 27/01/17.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     private List<Movie> mMovies;
+    private IMainView mIMainView;
 
-    public MovieAdapter(List<Movie> mMovies) {
+    public MovieAdapter(IMainView mIMainView, List<Movie> mMovies) {
         this.mMovies = mMovies;
+        this.mIMainView = mIMainView;
     }
 
     @Override
@@ -48,10 +51,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return mMovies == null?0: mMovies.size();
+        return mMovies == null ? 0 : mMovies.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.iv_movie)
         ImageView mIvMovie;
@@ -65,6 +68,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(view -> mIMainView.gotoMovieDetail(
+                    mMovies.get(getLayoutPosition())));
         }
     }
 
