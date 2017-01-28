@@ -20,13 +20,14 @@ import com.example.andres.movies_test.presenter.IMainPresenter;
 import com.example.andres.movies_test.presenter.MainPresenter;
 import com.example.andres.movies_test.view.IMainView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,
-        IMainView{
+        IMainView {
 
     @BindView(R.id.rvMovie)
     RecyclerView mRvMovie;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     private IMainPresenter mIMainPresenter;
     private SearchView mSearchView;
+
+    private GenreResponse mGenreResponse;
 
     private static final String INTENT_DATA_GENRES =
             "com.example.andres.movies_test.data.INTENT_DATA_GENRES";
@@ -53,9 +56,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        // Associate searchable configuration with the SearchView
+
         mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         mSearchView.setOnQueryTextListener(this);
 
@@ -66,16 +68,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        GenreResponse genreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
         switch (item.getItemId()) {
             case R.id.action_filter_date:
-                mIMainPresenter.filterByDate(genreResponse);
+                mIMainPresenter.filterByDate(getGenreCopy());
                 return true;
             case R.id.action_filter_alphabetically_asc:
-                mIMainPresenter.filterByAsc(genreResponse);
+                mIMainPresenter.filterByAsc(getGenreCopy());
                 return true;
             case R.id.action_filter_alphabetically_des:
-                mIMainPresenter.filterByDesc(genreResponse);
+                mIMainPresenter.filterByDesc(getGenreCopy());
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -94,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        if (newText.isEmpty()) {
+            displayData(getGenreCopy());
+            return false;
+        }
         mGenreAdapter.clear();
         mGenreAdapter.getFilter().filter(newText.toUpperCase().trim());
         return false;
@@ -103,11 +108,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         mIMainPresenter = new MainPresenter(this);
 
-        GenreResponse mGenreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
+        mGenreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
+
         mRvMovie.setLayoutManager(new LinearLayoutManager(this));
         mRvMovie.setHasFixedSize(true);
         mRvMovie.setItemAnimator(new DefaultItemAnimator());
         mRvMovie.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mRvMovie.setAdapter(mGenreAdapter = new GenreAdapter(mGenreResponse.getGenres()));
+        mRvMovie.setAdapter(mGenreAdapter = new GenreAdapter(getGenreCopy()));
+    }
+
+    private List<Genre> getGenreCopy(){
+        return (List<Genre>) ((ArrayList) mGenreResponse.getGenres()).clone();
     }
 }

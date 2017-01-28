@@ -1,6 +1,8 @@
 package com.example.andres.movies_test.presenter;
 
-import com.example.andres.movies_test.model.GenreResponse;
+import com.example.andres.movies_test.model.Genre;
+
+import java.util.List;
 
 /**
  * Created by andres on 27/01/17.
@@ -8,9 +10,9 @@ import com.example.andres.movies_test.model.GenreResponse;
 
 public interface IMainPresenter {
 
-    void filterByDate(GenreResponse mGenreResponse);
+    void filterByDate(final List<Genre> genres);
 
-    void filterByAsc(GenreResponse mGenreResponse);
+    void filterByAsc(final List<Genre> genres);
 
-    void filterByDesc(GenreResponse mGenreResponse);
+    void filterByDesc(final List<Genre> genres);
 }

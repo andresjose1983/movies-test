@@ -2,15 +2,14 @@ package com.example.andres.movies_test.presenter;
 
 import android.util.Log;
 
-import com.example.andres.movies_test.MainActivity;
 import com.example.andres.movies_test.model.Genre;
-import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.view.IMainView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -30,8 +29,8 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void filterByDate(GenreResponse mGenreResponse) {
-        for (Genre genre : mGenreResponse.getGenres()) {
+    public void filterByDate(final List<Genre> genres) {
+        for (Genre genre : genres) {
             Collections.sort(genre.getMovies(), (m, m1) -> {
                 try {
                     mCalendar.setTime(mSimpleDateFormat.parse(m.getDate()));
@@ -43,20 +42,20 @@ public class MainPresenter implements IMainPresenter {
                 return 0;
             });
         }
-        mIMainView.displayData(mGenreResponse.getGenres());
+        mIMainView.displayData(genres);
     }
 
     @Override
-    public void filterByAsc(GenreResponse mGenreResponse) {
-        for (Genre genre : mGenreResponse.getGenres())
+    public void filterByAsc(final List<Genre> genres) {
+        for (Genre genre :genres)
             Collections.sort(genre.getMovies());
-        mIMainView.displayData(mGenreResponse.getGenres());
+        mIMainView.displayData(genres);
     }
 
     @Override
-    public void filterByDesc(GenreResponse mGenreResponse) {
-        for (Genre genre : mGenreResponse.getGenres())
+    public void filterByDesc(final List<Genre> genres) {
+        for (Genre genre : genres)
             Collections.sort(genre.getMovies(), Collections.reverseOrder());
-        mIMainView.displayData(mGenreResponse.getGenres());
+        mIMainView.displayData(genres);
     }
 }

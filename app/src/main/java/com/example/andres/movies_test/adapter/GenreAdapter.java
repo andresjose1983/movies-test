@@ -123,7 +123,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
                     for (Movie movie : genre.getMovies()) {
                         try {
                             float rating = Float.parseFloat((String) constraint);
-                            if (movie.getVote() == rating)
+                            if (movie.getVote() >= rating)
                                 movies.add(movie);
                         } catch (NumberFormatException e) {
                             boolean verify = movie.getTitle().toUpperCase().contains(constraint)
