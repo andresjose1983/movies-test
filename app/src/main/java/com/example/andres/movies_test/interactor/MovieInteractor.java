@@ -12,12 +12,6 @@ import java.io.IOException;
 
 public class MovieInteractor {
 
-    private ISplashPresenter mISplashPresenter;
-
-    public MovieInteractor(ISplashPresenter mISplashPresenter) {
-        this.mISplashPresenter = mISplashPresenter;
-    }
-
     /**
      * Call service in order to movies by genreId
      * @param genreId
@@ -26,8 +20,7 @@ public class MovieInteractor {
         try {
             return RestClient.getMoviesByGenre(genreId).execute().body();
         } catch (IOException e) {
-            mISplashPresenter.showError(e.getMessage());
+            return null;
         }
-        return null;
     }
 }

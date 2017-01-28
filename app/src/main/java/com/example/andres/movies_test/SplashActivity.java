@@ -1,5 +1,9 @@
 package com.example.andres.movies_test;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -14,6 +18,17 @@ public class SplashActivity extends AppCompatActivity implements ISplashView{
 
     private ISplashPresenter mISplashPresenter;
 
+    public static final String INTENT_FILTER =
+            "com.example.andres.movies_test.intent.INTENT_FILTER";
+
+    BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            goToNextView((GenreResponse) intent.getExtras().get(MovieServices.INTENT_DATA_GENRES));
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +40,14 @@ public class SplashActivity extends AppCompatActivity implements ISplashView{
     protected void onStart() {
         super.onStart();
         mISplashPresenter.getGenres();
+        registerReceiver(mBroadcastReceiver, new IntentFilter(INTENT_FILTER));
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
     }
 
     @Override
