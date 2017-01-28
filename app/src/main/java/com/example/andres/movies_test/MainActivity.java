@@ -3,6 +3,7 @@ package com.example.andres.movies_test;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,8 +20,8 @@ import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.presenter.IMainPresenter;
 import com.example.andres.movies_test.presenter.MainPresenter;
 import com.example.andres.movies_test.view.IMainView;
+import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -118,6 +119,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     private List<Genre> getGenreCopy(){
-        return (List<Genre>) ((ArrayList) mGenreResponse.getGenres()).clone();
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.app_name),
+                Context.MODE_PRIVATE);
+        GenreResponse genreResponse = new Gson().fromJson(sharedPref.getString(
+                getString(R.string.genre_object), null),
+                GenreResponse.class);
+        return genreResponse.getGenres();
     }
 }

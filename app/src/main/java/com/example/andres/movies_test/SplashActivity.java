@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.example.andres.movies_test.model.MovieResponse;
 import com.example.andres.movies_test.presenter.ISplashPresenter;
 import com.example.andres.movies_test.presenter.SplashPresenter;
 import com.example.andres.movies_test.view.ISplashView;
+import com.google.gson.Gson;
 
 public class SplashActivity extends AppCompatActivity implements ISplashView{
 
@@ -24,7 +26,17 @@ public class SplashActivity extends AppCompatActivity implements ISplashView{
     BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            goToNextView((GenreResponse) intent.getExtras().get(MovieServices.INTENT_DATA_GENRES));
+            GenreResponse genreResponse = (GenreResponse) intent.getExtras()
+                    .get(MovieServices.INTENT_DATA_GENRES);
+
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    getString(R.string.app_name), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.genre_object), new Gson().toJson(genreResponse));
+            editor.commit();
+
+
+            goToNextView(genreResponse);
         }
     };
 

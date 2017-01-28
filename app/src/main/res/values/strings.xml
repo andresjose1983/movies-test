@@ -5,4 +5,5 @@
     <string name="action_change_filter_date">Date</string>
     <string name="action_change_filter_asc">ASC</string>
     <string name="action_change_filter_desc">DESC</string>
+    <string name="genre_object">genre_object</string>
 </resources>
