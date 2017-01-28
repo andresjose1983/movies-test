@@ -3,7 +3,6 @@ package com.example.andres.movies_test;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,11 +15,9 @@ import android.view.MenuItem;
 
 import com.example.andres.movies_test.adapter.GenreAdapter;
 import com.example.andres.movies_test.model.Genre;
-import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.presenter.IMainPresenter;
 import com.example.andres.movies_test.presenter.MainPresenter;
 import com.example.andres.movies_test.view.IMainView;
-import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -32,19 +29,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @BindView(R.id.rvMovie)
     RecyclerView mRvMovie;
+
     private GenreAdapter mGenreAdapter;
 
     private IMainPresenter mIMainPresenter;
+
     private SearchView mSearchView;
 
-    private GenreResponse mGenreResponse;
-
-    private static final String INTENT_DATA_GENRES =
-            "com.example.andres.movies_test.data.INTENT_DATA_GENRES";
-
-    public static void show(final SplashActivity splashActivity, final GenreResponse genreResponse) {
-        splashActivity.startActivity(new Intent(splashActivity, MainActivity.class)
-                .putExtra(INTENT_DATA_GENRES, genreResponse));
+    public static void show(final SplashActivity splashActivity) {
+        splashActivity.startActivity(new Intent(splashActivity, MainActivity.class));
     }
 
     @Override
@@ -109,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         mIMainPresenter = new MainPresenter(this);
 
-        mGenreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
-
         mRvMovie.setLayoutManager(new LinearLayoutManager(this));
         mRvMovie.setHasFixedSize(true);
         mRvMovie.setItemAnimator(new DefaultItemAnimator());
@@ -119,11 +110,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     private List<Genre> getGenreCopy(){
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.app_name),
-                Context.MODE_PRIVATE);
-        GenreResponse genreResponse = new Gson().fromJson(sharedPref.getString(
-                getString(R.string.genre_object), null),
-                GenreResponse.class);
-        return genreResponse.getGenres();
+        return mIMainPresenter.get(this);
     }
 }

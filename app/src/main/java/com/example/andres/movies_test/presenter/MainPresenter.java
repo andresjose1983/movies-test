@@ -1,7 +1,9 @@
 package com.example.andres.movies_test.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.example.andres.movies_test.interactor.GenreInteractor;
 import com.example.andres.movies_test.model.Genre;
 import com.example.andres.movies_test.view.IMainView;
 
@@ -23,6 +25,7 @@ public class MainPresenter implements IMainPresenter {
     private Calendar mCalendar1 = Calendar.getInstance();
 
     private IMainView mIMainView;
+    GenreInteractor mGenreInteractor = new GenreInteractor();
 
     public MainPresenter(IMainView mIMainView) {
         this.mIMainView = mIMainView;
@@ -57,5 +60,10 @@ public class MainPresenter implements IMainPresenter {
         for (Genre genre : genres)
             Collections.sort(genre.getMovies(), Collections.reverseOrder());
         mIMainView.displayData(genres);
+    }
+
+    @Override
+    public List<Genre> get(Context context) {
+        return mGenreInteractor.get(context);
     }
 }

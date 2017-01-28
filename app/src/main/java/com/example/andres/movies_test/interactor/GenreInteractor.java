@@ -1,8 +1,16 @@
 package com.example.andres.movies_test.interactor;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.example.andres.movies_test.R;
+import com.example.andres.movies_test.model.Genre;
 import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.presenter.ISplashPresenter;
 import com.example.andres.movies_test.service.RestClient;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,6 +23,10 @@ import retrofit2.Response;
 public class GenreInteractor {
 
     private ISplashPresenter mISplashPresenter;
+
+    public GenreInteractor(){
+
+    }
 
     public GenreInteractor(ISplashPresenter mISplashPresenter) {
         this.mISplashPresenter = mISplashPresenter;
@@ -36,5 +48,12 @@ public class GenreInteractor {
                 mISplashPresenter.showError(t.getMessage());
             }
         });
+    }
+
+    public List<Genre> get(final Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.app_name), Context.MODE_PRIVATE);
+        return new Gson().fromJson(sharedPref.getString(
+                context.getString(R.string.genre_object), null), GenreResponse.class).getGenres();
     }
 }

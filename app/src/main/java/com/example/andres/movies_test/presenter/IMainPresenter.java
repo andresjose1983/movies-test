@@ -1,5 +1,7 @@
 package com.example.andres.movies_test.presenter;
 
+import android.content.Context;
+
 import com.example.andres.movies_test.model.Genre;
 
 import java.util.List;
@@ -15,4 +17,6 @@ public interface IMainPresenter {
     void filterByAsc(final List<Genre> genres);
 
     void filterByDesc(final List<Genre> genres);
+
+    List<Genre> get(Context context);
 }

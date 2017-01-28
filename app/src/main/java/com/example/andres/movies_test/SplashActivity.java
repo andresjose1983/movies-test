@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.andres.movies_test.model.GenreResponse;
-import com.example.andres.movies_test.model.MovieResponse;
 import com.example.andres.movies_test.presenter.ISplashPresenter;
 import com.example.andres.movies_test.presenter.SplashPresenter;
 import com.example.andres.movies_test.view.ISplashView;
@@ -36,7 +35,7 @@ public class SplashActivity extends AppCompatActivity implements ISplashView{
             editor.commit();
 
 
-            goToNextView(genreResponse);
+            goToNextView();
         }
     };
 
@@ -63,8 +62,8 @@ public class SplashActivity extends AppCompatActivity implements ISplashView{
     }
 
     @Override
-    public void goToNextView(final GenreResponse genreResponse) {
-        MainActivity.show(this, genreResponse);
+    public void goToNextView() {
+        MainActivity.show(this);
     }
 
     @Override
