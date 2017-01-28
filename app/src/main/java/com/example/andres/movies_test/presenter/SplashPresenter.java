@@ -37,18 +37,9 @@ public class SplashPresenter implements ISplashPresenter {
         //Order
         Collections.sort(genreResponse.getGenres());
         for (Genre genre: genreResponse.getGenres()) {
-            MovieResponse moviesByGenre = mMovieInteractor.getMoviesByGenre(String.valueOf(genre.getId()));
-            //Order
-            Collections.sort(moviesByGenre.getResults(), (m, m1)->{
-                if(m.getTitle().compareToIgnoreCase(m1.getTitle()) == 0){
-                    if(m.getOriginalTitle().compareToIgnoreCase(m1.getOriginalTitle()) == 0){
-                        return m.getOverview().compareToIgnoreCase(m1.getOverview());
-                    }else
-                        return m.getOriginalTitle().compareToIgnoreCase(m1.getOriginalLanguage());
-
-                }else
-                    return m.getTitle().compareToIgnoreCase(m1.getTitle());
-            });
+            MovieResponse moviesByGenre = mMovieInteractor.getMoviesByGenre(
+                    String.valueOf(genre.getId()));
+            Collections.sort(moviesByGenre.getResults());
             genre.setMovies(moviesByGenre.getResults());
         }
         mISplashView.goToNextView(genreResponse);

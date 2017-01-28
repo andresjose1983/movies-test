@@ -10,29 +10,29 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.andres.movies_test.adapter.GenreAdapter;
 import com.example.andres.movies_test.model.Genre;
 import com.example.andres.movies_test.model.GenreResponse;
+import com.example.andres.movies_test.presenter.IMainPresenter;
+import com.example.andres.movies_test.presenter.MainPresenter;
+import com.example.andres.movies_test.view.IMainView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Locale;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,
+        IMainView{
 
     @BindView(R.id.rvMovie)
     RecyclerView mRvMovie;
     private GenreAdapter mGenreAdapter;
 
+    private IMainPresenter mIMainPresenter;
     private SearchView mSearchView;
 
     private static final String INTENT_DATA_GENRES =
@@ -66,32 +66,25 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        GenreResponse genreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
         switch (item.getItemId()) {
             case R.id.action_filter_date:
-                mGenreAdapter.clear();
-
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd", Locale.US);
-                Calendar calendar = Calendar.getInstance();
-                Calendar calendar1 = Calendar.getInstance();
-
-                GenreResponse mGenreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
-
-                for (Genre genre : mGenreResponse.getGenres()) {
-                    Collections.sort(genre.getMovies(), (m, m1) -> {
-                        try {
-                            calendar.setTime(simpleDateFormat.parse(m.getDate()));
-                            calendar1.setTime(simpleDateFormat.parse(m1.getDate()));
-                            return calendar.compareTo(calendar1);
-                        } catch (ParseException e) {
-                            Log.i(MainActivity.class.getCanonicalName(), e.getLocalizedMessage());
-                        }
-                        return 0;
-                    });
-                }
-                mGenreAdapter.addAll(mGenreResponse.getGenres());
+                mIMainPresenter.filterByDate(genreResponse);
+                return true;
+            case R.id.action_filter_alphabetically_asc:
+                mIMainPresenter.filterByAsc(genreResponse);
+                return true;
+            case R.id.action_filter_alphabetically_des:
+                mIMainPresenter.filterByDesc(genreResponse);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void displayData(final List<Genre> genres) {
+        mGenreAdapter.clear();
+        mGenreAdapter.addAll(genres);
     }
 
     @Override
@@ -107,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     private void init() {
+
+        mIMainPresenter = new MainPresenter(this);
+
         GenreResponse mGenreResponse = (GenreResponse) getIntent().getExtras().get(INTENT_DATA_GENRES);
         mRvMovie.setLayoutManager(new LinearLayoutManager(this));
         mRvMovie.setHasFixedSize(true);
@@ -114,6 +110,4 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mRvMovie.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRvMovie.setAdapter(mGenreAdapter = new GenreAdapter(mGenreResponse.getGenres()));
     }
-
-
 }
