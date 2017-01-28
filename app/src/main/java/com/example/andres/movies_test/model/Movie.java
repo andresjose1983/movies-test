@@ -95,7 +95,7 @@ public class Movie implements Serializable, Comparable<Movie> {
      * @return
      */
     public String getOriginalTitle() {
-        return originalTitle;
+        return originalTitle == null?"":originalTitle;
     }
 
     /**
@@ -103,7 +103,7 @@ public class Movie implements Serializable, Comparable<Movie> {
      * @return
      */
     public String getOverview() {
-        return overview;
+        return overview == null?"":overview;
     }
 
     /**
@@ -127,7 +127,7 @@ public class Movie implements Serializable, Comparable<Movie> {
      * @return
      */
     public String getTitle() {
-        return title;
+        return title == null?"":title;
     }
 
     /**
