@@ -3,7 +3,7 @@ package com.example.andres.movies_test.presenter;
 import android.content.Intent;
 
 import com.example.andres.movies_test.App;
-import com.example.andres.movies_test.MovieServices;
+import com.example.andres.movies_test.intent.services.MovieServices;
 import com.example.andres.movies_test.interactor.GenreInteractor;
 import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.view.ISplashView;

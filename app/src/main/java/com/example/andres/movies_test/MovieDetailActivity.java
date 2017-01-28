@@ -1,14 +1,11 @@
 package com.example.andres.movies_test;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.andres.movies_test.model.Movie;
+import com.example.andres.movies_test.util.Function;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,10 +43,10 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     public static void show(final MainActivity mainActivity, final RatingBar ratingBar,
                             TextView title, TextView tvDate, final ImageView ivMovie,
-                            final Movie movie){
+                            final Movie movie) {
         Intent intent = new Intent(mainActivity, MovieDetailActivity.class).putExtra(INTENT_DATA, movie);
 
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
             Pair<View, String> p1 = Pair.create(ivMovie, "movie_picture");
             Pair<View, String> p2 = Pair.create(tvDate, "date");
             Pair<View, String> p3 = Pair.create(title, "title");
@@ -57,7 +55,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             ActivityOptionsCompat options = ActivityOptionsCompat
                     .makeSceneTransitionAnimation(mainActivity, p1, p2, p3, p4);
             mainActivity.startActivity(intent, options.toBundle());
-        }else
+        } else
             mainActivity.startActivity(intent);
     }
 
@@ -79,9 +77,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void init(){
+    private void init() {
 
-        movie = (Movie)getIntent().getExtras().get(INTENT_DATA);
+        movie = (Movie) getIntent().getExtras().get(INTENT_DATA);
 
         Glide.with(this).load(BuildConfig.URL_IMAGE_POST + movie.getPosterPath())
                 .centerCrop().crossFade(500).into(mIvMovie);
@@ -94,18 +92,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         mTvOverview.setText(movie.getOverview());
         mRbMovie.setRating(movie.getVote());
 
-        LayerDrawable stars = (LayerDrawable) mRbMovie.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(mRbMovie.getContext(),
-                R.color.yellow), PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(1).setColorFilter(ContextCompat.getColor(mRbMovie.getContext(),
-                R.color.yellow), PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(0).setColorFilter(ContextCompat.getColor(mRbMovie.getContext(),
-                R.color.yellow), PorterDuff.Mode.SRC_ATOP);
-
+        Function.changeRatingColor(mRbMovie);
 
         setSupportActionBar(mTbPhoto);
         // add back arrow to toolbar
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

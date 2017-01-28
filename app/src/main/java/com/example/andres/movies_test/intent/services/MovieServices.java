@@ -1,8 +1,9 @@
-package com.example.andres.movies_test;
+package com.example.andres.movies_test.intent.services;
 
 import android.app.IntentService;
 import android.content.Intent;
 
+import com.example.andres.movies_test.SplashActivity;
 import com.example.andres.movies_test.interactor.MovieInteractor;
 import com.example.andres.movies_test.model.Genre;
 import com.example.andres.movies_test.model.GenreResponse;

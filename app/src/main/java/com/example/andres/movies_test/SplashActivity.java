@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.example.andres.movies_test.intent.services.MovieServices;
 import com.example.andres.movies_test.model.GenreResponse;
 import com.example.andres.movies_test.presenter.ISplashPresenter;
 import com.example.andres.movies_test.presenter.SplashPresenter;
