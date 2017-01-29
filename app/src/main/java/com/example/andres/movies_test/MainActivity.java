@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     public static void show(final SplashActivity splashActivity) {
         splashActivity.startActivity(new Intent(splashActivity, MainActivity.class));
+        splashActivity.finish();
     }
 
     @Override
